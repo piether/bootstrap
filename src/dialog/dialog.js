@@ -31,6 +31,7 @@ dialogModule.provider("$dialog", function(){
 	var globalOptions = {};
 
   var activeBackdrops = {value : 0};
+  var shownBackdropEl;
 
   // The `options({})` allows global configuration of all dialogs in the application.
   //
@@ -200,7 +201,8 @@ dialogModule.provider("$dialog", function(){
 
       if(this.options.backdrop) { 
         if (activeBackdrops.value === 0) {
-          body.append(this.backdropEl); 
+          body.append(this.backdropEl);
+          shownBackdropEl = this.backdropEl;
         }
         activeBackdrops.value++;
       }
@@ -214,7 +216,7 @@ dialogModule.provider("$dialog", function(){
       if(this.options.backdrop) { 
         activeBackdrops.value--;
         if (activeBackdrops.value === 0) {
-          this.backdropEl.remove(); 
+          shownBackdropEl.remove(); 
         }
       }
       this._open = false;
